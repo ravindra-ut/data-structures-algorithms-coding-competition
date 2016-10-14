@@ -5,10 +5,6 @@ import java.math.*;
 import java.util.regex.*;
 
 public class LargestRectangle {
-
-     public static int pop(){
-       
-    }
      
     public static void main(String[] args) {
       Scanner sc = new Scanner(System.in);
@@ -22,26 +18,29 @@ public class LargestRectangle {
       int topBarIndex;
       for(int i=0;i<n;i++){
         hist[i] = sc.nextInt();
+      }
+      int i = 0;
+      while(i<n){
         // stack is empty or next bar is equal or greater
         if(top == -1 || hist[stack[top]] <= hist[i]){
           top = top + 1;
           stack[top] = i;
+          i = i + 1;
         } else {
-          // remove all maximum elments
+          // remove maximum eelment
           // same time calculate area and update largest
-          while(top == -1 || stack[top] > hist[i]){
-            topBarIndex = stack[top];
-            top = top - 1;
-            current_area = hist[topBarIndex] * (i - topBarIndex);
-            if(current_area > largest_area){
-              largest_area = current_area;
-            }
+          topBarIndex = stack[top];
+          top = top - 1;
+          // when stack is empty, this was lowest element upto we saw now
+          // so width is simply i
+          // otherwise pull previous top index and subtract it with and 1.
+          if(top == -1) {
+            current_area = hist[topBarIndex] * i;
+          }else{
+            current_area = hist[topBarIndex] * (i - stack[top] - 1);
           }
-          if(top != -1 && stack[top] == hist[i]){
-            continue;
-          } else {
-            top =  top + 1;
-            stack[top] = i;
+          if(current_area > largest_area){
+            largest_area = current_area;
           }
         }
       }
@@ -49,9 +48,13 @@ public class LargestRectangle {
       while(top != -1){
         topBarIndex = stack[top];
         top = top - 1;
-        current_area = hist[topBarIndex] * (n - topBarIndex);
+        if(top == -1) {
+          current_area = hist[topBarIndex] * n;
+        }else{
+          current_area = hist[topBarIndex] * (n - stack[top] - 1);
+        }
         if(current_area > largest_area){
-           largest_area = current_area;
+          largest_area = current_area;
         }
       }
       System.out.println(largest_area);
