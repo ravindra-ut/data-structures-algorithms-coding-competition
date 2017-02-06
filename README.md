@@ -1,5 +1,7 @@
 # data-structures-algorithms-coding-competition
-my submission for coding competition
+my submission for coding competition like hackerrank and leetcode etc.
+
+You can read up on topics from hackerank links provided below.
 <ol>
 <li><a href="https://www.hackerrank.com/topics/if-else-statements">if-else-statements</a></li>
 <li><a href="https://www.hackerrank.com/topics/closed-form">closed-form</a></li>
